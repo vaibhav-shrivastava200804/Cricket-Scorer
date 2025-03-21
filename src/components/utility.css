@@ -1,0 +1,156 @@
+.custom-width {
+  width: 50% !important;
+}
+
+.custom-width2{
+  width: 75%;
+}
+
+.w-25{
+  width: 25%;
+}
+
+.custom-width-3{
+  width: 10%;
+}
+
+.custom-hw{
+  height: 50%;
+  width: 25%;
+}
+@media (max-width: 600px) {
+  .custom-width {
+    width: 75% !important;
+  }
+
+  .custom-flex{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom-btn{
+    width: 70px !important;
+  }
+  
+  .custom-width2{
+    width: auto !important;
+  }
+
+  .custom-width-3{
+    width: 100%;
+  }
+
+  .w-25{
+    width: auto !important;
+  }
+
+  .custom-hw{
+    height: 30%;
+    width: 45%;
+  }
+}
+
+.list-group-numbered {
+  counter-reset: list-counter;
+}
+
+.list-group-numbered .list-group-item {
+  counter-increment: list-counter;
+}
+
+.list-group-numbered .list-group-item::before {
+  content: counter(list-counter) ". ";
+  font-weight: bold;
+}
+
+
+.blur {
+  background-color: rgba(200, 233, 163, 0.74);
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+}
+
+.blur::placeholder {
+  color: black;
+}
+
+.blur {
+  background: rgba(255, 255, 255, 0.4); /* Semi-transparent white background */
+  backdrop-filter: blur(5px); /* Apply a blur effect */
+  -webkit-backdrop-filter: blur(1px); /* Safari support */
+  border-radius: 10px; /* Optional: rounded corners */
+  padding: 5px; /* Optional: padding inside the div */
+  width: 30%;
+}
+
+.blur {
+  backdrop-filter: blur(10px); /* Apply a blur effect */
+  -webkit-backdrop-filter: blur(1px);
+}
+
+.custom-border {
+  border-color: #001d4a !important;
+}
+
+.bgGradient {
+  background: linear-gradient(
+    132deg,
+    #85ffbd 0%,
+    #fffb7d 24%,
+    #d3e797 62%,
+    #e4f3b5 84%
+  );
+}
+
+.bgGradient2 {
+  background: linear-gradient(90deg, #fffb7d 0%, #92fe9d 100%);
+}
+
+.lightBg {
+  background: linear-gradient(
+    45deg,
+    #85ffbd 0%,
+    #fffb7d 33%,
+    #d3e797 66%,
+    #e4f3b5 100%
+  );
+}
+
+.runbtn:hover{
+   background: linear-gradient(155deg, #f6cf6a 25%, #e0f0af 50%, #e9fc83 84%);
+}
+
+.runbtn:active{
+  transform: scale(0.95);
+}
+
+.table {
+  background: transparent !important;
+  color: #001d4a !important;
+  border-collapse: collapse !important;
+}
+
+th {
+  background: transparent !important;
+  border-bottom: 2px solid #001d4a !important;
+  border-radius: 5px !important;
+  width: 15%;
+}
+
+tr,
+td {
+  background: transparent !important;
+  border-bottom: none !important;
+  border-radius: 10px;
+}
+
+table th:first-child {
+  width: 40% !important;
+}
+
+/*responsiveness*/
+
+
