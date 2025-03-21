@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import {useAtom} from "jotai"
+import {teamsAtom} from '../App'
 
 export default function TossInfo({ onNext }) {
-  const [team1] = useState("Team A"); // Static team names for now
-  const [team2] = useState("Team B");
+  const [teams, setTeams] = useAtom(teamsAtom)
+
+  const team1=teams[0]
+  const team2=teams[1]
+
   const [selectedTeam, setSelectedTeam] = useState(""); // To store selected team
 
   // Handle team selection
   const handleSelectWinner = (team) => {
-    setSelectedTeam(team);
+    setSelectedTeam(team.name);
   };
 
   // Handle next button click
@@ -88,7 +93,7 @@ export default function TossInfo({ onNext }) {
                   onClick={() => handleSelectWinner(team1)}
                   style={{background:"rgba(49, 210, 242, 0.84)"}}
                 >
-                  {team1}
+                  {team1.name}
                 </button>
               </li>
               <li>
@@ -97,7 +102,7 @@ export default function TossInfo({ onNext }) {
                   onClick={() => handleSelectWinner(team2)}
                   style={{background:"rgba(49, 210, 242, 0.84)"}}
                 >
-                  {team2}
+                  {team2.name}
                 </button>
               </li>
             </ul>

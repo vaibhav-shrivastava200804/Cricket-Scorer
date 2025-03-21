@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./utility.css"
+import { useAtom } from "jotai";
+import { teamsAtom } from "../App";
+
+
 export default function BatBowl({ onNext }) {
   // Static players for teams, replace with dynamic data later.
   const [team1] = useState(["Player 1A", "Player 2A", "Player 3A", "Player 4A"]);

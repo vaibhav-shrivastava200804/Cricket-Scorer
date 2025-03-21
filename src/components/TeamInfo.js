@@ -14,7 +14,7 @@ export default function TeamInfo({ onNext }) {
 
   const [playerName, setPlayerName] = useState("");
   const [playerName2, setPlayerName2] = useState("");
-
+  const tempTeams = [...teams]
   const addPlayer1 = () => {
     if (playerName.trim() !== "") {
       const teamTeam1 = {...team1}
@@ -27,7 +27,7 @@ export default function TeamInfo({ onNext }) {
           Over: 0, 
           Wicket: 0
         })
-        const tempTeams = [...teams]
+        
         tempTeams[0] = teamTeam1
         setTeams(tempTeams)
         
@@ -35,15 +35,31 @@ export default function TeamInfo({ onNext }) {
         setPlayerName(""); // Clear the input field
         console.log(team1);
       }
-
     }
   };
 
   const addPlayer2 = () => {
     if (playerName2.trim() !== "") {
-      // setteam2((prevTeam) => [...prevTeam, playerName2]); // Update state immutably
-      setPlayerName2(""); // Clear the input field
-      console.log(team2);
+      const teamTeam2 = {...team2}
+      if (teamTeam2.players) {
+        teamTeam2.players.push({
+          name: playerName2, 
+          Runs: 0, 
+          Balls: 0, 
+          StrikeRate: 0, 
+          Over: 0, 
+          Wicket: 0
+        })
+
+        
+        tempTeams[1] = teamTeam2
+        setTeams(tempTeams)
+        
+        // setteam1((prevTeam) => [...prevTeam, playerName]); // Update state immutably
+        setPlayerName2(""); // Clear the input field
+        console.log(team2);
+      }
+
     }
   };
 
