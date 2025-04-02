@@ -1,26 +1,46 @@
 import React, { useState } from "react";
-import {useAtom} from "jotai"
+import {useAtom, useSetAtom} from "jotai"
 import {teamsAtom} from '../App'
+import { tossWinnerAtom } from "../App";
+import { useEffect } from "react";
+
 
 export default function TossInfo({ onNext }) {
   const [teams, setTeams] = useAtom(teamsAtom)
-
+  const [TossWinnerteam, setTossWinnerteam]= useAtom(tossWinnerAtom)
   const team1=teams[0]
   const team2=teams[1]
 
-  const [selectedTeam, setSelectedTeam] = useState(""); // To store selected team
 
   // Handle team selection
   const handleSelectWinner = (team) => {
-    setSelectedTeam(team.name);
-  };
+  setTossWinnerteam((prevState) => ({
+    ...prevState,
+    tossWinner: team, // Fix the spelling here (was "tossWiner")
+    choice: ""
+  }));
+};
+
+const handleSelectChoice = (winChoice) => {
+  setTossWinnerteam((prevState) => ({
+    ...prevState,
+    choice: winChoice
+  }));
+};
+  
+  // ✅ Logs the updated state **after** the state changes
+  useEffect(() => {
+    console.log("Updated toss winner =", TossWinnerteam);
+  }, [TossWinnerteam]); // Runs when TossWinnerteam updates
+  
+  
 
   // Handle next button click
   const handleNextClick = () => {
-    if (selectedTeam) {
+    if (TossWinnerteam.tossWinner && TossWinnerteam.tossWinner.name) {
       // Call the onNext function when a team is selected
       onNext();
-      console.log(`${selectedTeam} won the toss!`);
+      console.log(`${TossWinnerteam.tossWinner.name} won the toss and elected to ${TossWinnerteam.choice}!`);
     } else {
       alert("Please select a team first.");
     }
@@ -107,7 +127,37 @@ export default function TossInfo({ onNext }) {
               </li>
             </ul>
           </div>
-          {selectedTeam && <h4 style={{color:"#001d4a"}}>{selectedTeam} won the toss!</h4>}
+          <div className="dropdown">
+            <button
+              className="btn btn-info dropdown-toggle my-2 fw-bold" style={{color:"#001d4a"}}
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Select Choice
+            </button>
+            <ul className="dropdown-menu" style={{background:"rgba(49, 210, 242, 0.84)"}}>
+              <li className="border-bottom border-2">
+                <button
+                  className="dropdown-item my-1"
+                  onClick={() => handleSelectChoice("Batting")}
+                  style={{background:"rgba(49, 210, 242, 0.84)"}}
+                >
+                  Batting
+                </button>
+              </li>
+              <li>
+                <button
+                  className="dropdown-item my-1"
+                  onClick={() => handleSelectChoice("Bowling")}
+                  style={{background:"rgba(49, 210, 242, 0.84)"}}
+                >
+                  Bowling
+                </button>
+              </li>
+            </ul>
+          </div>
+          {TossWinnerteam && TossWinnerteam.tossWinner && <h4 style={{color:"#001d4a"}}>{TossWinnerteam.tossWinner.name} won the toss! & Elected {TossWinnerteam.choice}</h4>}
           <div className="mt-3 my-4">
             <button
               className="btn btn-success"

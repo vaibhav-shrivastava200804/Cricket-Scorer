@@ -25,6 +25,10 @@ import { atom } from "jotai";
 
 export const teamsAtom = atom([])
 
+export const tossWinnerAtom = atom({
+  tossWinner: "",
+  choice: ""
+});
 
 const App = () => {
   const navigate = useNavigate();
