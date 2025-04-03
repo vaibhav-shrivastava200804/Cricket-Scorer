@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import "./utility.css"
 import { useAtom } from "jotai";
 import { teamsAtom } from "../App";
-
+import { batFirstAtom } from "../App";
 
 export default function BatBowl({ onNext }) {
-  // Static players for teams, replace with dynamic data later.
-  const [team1] = useState(["Player 1A", "Player 2A", "Player 3A", "Player 4A"]);
-  const [team2] = useState(["Player 1B", "Player 2B", "Player 3B", "Player 4B"]);
 
   // States to store selected players
   const [striker, setStriker] = useState("");
@@ -16,16 +13,24 @@ export default function BatBowl({ onNext }) {
 
   // Handle selection of players
   const handleStrikerSelection = (player) => {
-    setStriker(player);
+    setStriker(player.name);
   };
 
   const handleNonstrikerSelection = (player) => {
-    setNonstriker(player);
+    setNonstriker(player.name);
   };
 
   const handleBowlerSelection = (player) => {
-    setBowler(player);
+    setBowler(player.name);
   };
+
+  const [teams, setTeams] = useAtom(teamsAtom)
+  const [battingFisrtteam, setbattingFirstteam]= useAtom(batFirstAtom)
+
+  const teamA = battingFisrtteam.batFirst;
+  const teamB =battingFisrtteam.batSecond;
+  console.log("bat first ", teamA)
+
 
   // Handle next button click
   const handleNextClick = () => {
@@ -81,7 +86,7 @@ export default function BatBowl({ onNext }) {
 
       {/* Team 1 - Batting Team (Striker and Non-Striker) */}
       <div className="p-3 m-1 border rounded bgGradient custom-width" style={{width:"30%"}}>
-        <h4>Batting Team (Team A)</h4>
+        <h4>{`Batting Team ${teamA.name}`}</h4>
 
         <div className="">
           <h5 style={{color:"#001d4a"}}>Select Striker</h5>
@@ -97,10 +102,10 @@ export default function BatBowl({ onNext }) {
               {striker ? striker : "Select Striker"}
             </button>
             <ul className="dropdown-menu" aria-labelledby="strikerDropdown">
-              {team1.map((player, index) => (
-                <li key={index}>
+              {teamA?.players?.map((player) => (
+                <li key={player?.name}>
                   <a className="dropdown-item" onClick={() => handleStrikerSelection(player)}>
-                    {player}
+                    {player.name}
                   </a>
                 </li>
               ))}
@@ -122,10 +127,10 @@ export default function BatBowl({ onNext }) {
               {nonstriker ? nonstriker : "Select Non-Striker"}
             </button>
             <ul className="dropdown-menu" aria-labelledby="nonstrikerDropdown">
-              {team1.map((player, index) => (
-                <li key={index}>
+              {teamA?.players?.map((player) => (
+                <li key={player?.name}>
                   <a className="dropdown-item" onClick={() => handleNonstrikerSelection(player)}>
-                    {player}
+                    {player.name}
                   </a>
                 </li>
               ))}
@@ -136,7 +141,7 @@ export default function BatBowl({ onNext }) {
 
       {/* Team 2 - Bowling Team (Bowler) */}
       <div className="p-3 m-1 border rounded bgGradient custom-width" style={{width:"30%"}}>
-        <h4>Bowling Team (Team B)</h4>
+        <h4>{`Bowling Team ${teamB.name}`}</h4>
         <div className="">
           <h5>Select Opening Bowler</h5>
           <div className="dropdown">
@@ -151,10 +156,10 @@ export default function BatBowl({ onNext }) {
               {bowler ? bowler : "Select Bowler"}
             </button>
             <ul className="dropdown-menu" aria-labelledby="bowlerDropdown">
-              {team2.map((player, index) => (
-                <li key={index}>
+              {teamB?.players?.map((player) => (
+                <li key={player?.name}>
                   <a className="dropdown-item" onClick={() => handleBowlerSelection(player)}>
-                    {player}
+                    {player.name}
                   </a>
                 </li>
               ))}
