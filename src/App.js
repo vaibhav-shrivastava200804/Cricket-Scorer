@@ -30,6 +30,11 @@ export const tossWinnerAtom = atom({
   choice: ""
 });
 
+export const batFirstAtom= atom({
+  batFirst: "",
+  batSecond: ""
+})
+
 const App = () => {
   const navigate = useNavigate();
 

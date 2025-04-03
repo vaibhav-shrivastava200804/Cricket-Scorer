@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import {useAtom, useSetAtom} from "jotai"
 import {teamsAtom} from '../App'
 import { tossWinnerAtom } from "../App";
+import { batFirstAtom } from "../App";
 import { useEffect } from "react";
 
 
 export default function TossInfo({ onNext }) {
   const [teams, setTeams] = useAtom(teamsAtom)
   const [TossWinnerteam, setTossWinnerteam]= useAtom(tossWinnerAtom)
+  const [battingFisrtteam, setbattingFirstteam]= useAtom(batFirstAtom)
   const team1=teams[0]
   const team2=teams[1]
 
@@ -26,11 +28,41 @@ const handleSelectChoice = (winChoice) => {
     ...prevState,
     choice: winChoice
   }));
+  if (TossWinnerteam.tossWinner.name == team1.name) {
+    if (winChoice == "Batting") {
+      setbattingFirstteam((prevState) => ({
+        ...prevState,
+        batFirst : team1,
+        batSecond :team2
+      }))
+    } else {
+      setbattingFirstteam((prevState) => ({
+        ...prevState,
+        batFirst : team2,
+        batSecond :team1
+      }))
+    }
+  } else {
+    if (winChoice == "Batting") {
+      setbattingFirstteam((prevState) => ({
+        ...prevState,
+        batFirst : team2,
+        batSecond :team1
+      }))
+    } else {
+      setbattingFirstteam((prevState) => ({
+        ...prevState,
+        batFirst : team1,
+        batSecond :team2
+      }))
+    }
+  }
 };
   
   // ✅ Logs the updated state **after** the state changes
   useEffect(() => {
     console.log("Updated toss winner =", TossWinnerteam);
+    console.log(battingFisrtteam)
   }, [TossWinnerteam]); // Runs when TossWinnerteam updates
   
   
